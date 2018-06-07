@@ -8,14 +8,15 @@ def get_authors(content, author_position, count):
     final_author = clean_html(str(auth[1].contents).strip("[]"))
     return final_author
 
-def get_complete_answer(answer_contents):
+def get_complete_answer(answer_contents, upvote):
     authors = []
     authors.append(get_authors(answer_contents, 3, 0))
     description = clean_html(str(answer_contents[1].find_all("p")).strip("[]"))
+    upvote = clean_html(str(upvote))
     answer_data = {
         "Description" : description,
         "Authors" : authors, 
-        # "Upvote" : upvote
+        "Upvote" : upvote
     }
     return answer_data
 
@@ -46,14 +47,15 @@ while(i != len(q_author_content)):
     question_authors.append(get_authors(question_contents, 5, i))
     i=i+1
 
-question_upvote = clean_html(str(soup.find("span", class_="vote-count-post")))
+upvotes = soup.find_all("span", class_="vote-count-post")
+question_upvote = clean_html(str(upvotes[0]))
+
 question_data = {
     "Question" : question_title,
     "Description" : question_description,
     "Authors" : question_authors, 
     "Upvote" :  question_upvote
 }
-
 
 list_of_answers = []
 
@@ -63,13 +65,11 @@ answer = soup.find_all("div", class_="answercell post-layout--right")
 
 while(count != len(answer)):
     ans=answer[count].contents
-    list_of_answers.append(get_complete_answer(ans))
+    list_of_answers.append(get_complete_answer(ans, upvotes[count+1]))
     count=count+1
 
 data[str(question_data)] = list_of_answers
-print(data)
 
 file = open("answers.txt","w") 
-file.write(str(question_authors))
+file.write(str(data))
 file.close() 
-
