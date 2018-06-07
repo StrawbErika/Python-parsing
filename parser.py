@@ -96,7 +96,14 @@ while(count != len(answer)):
 
 data[str(question_data)] = list_of_answers
 
-print(data)
 file = open("answers.txt","w") 
-file.write(str(data))
+file.write("Questions" + "\n")
+for k, v in data.items():
+    file.write(str(k) + "\n" + "\n")
+    file.write("Answers" + "\n")
+    for x in v:
+        file.write("\n")
+        for a, b in x.items():
+            file.write(str(a) + " ")
+            file.write(str(b) + "\n")
 file.close() 
