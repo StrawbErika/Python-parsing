@@ -37,16 +37,17 @@ while(i != len(author_content)):
     question_authors.append(str(auth[1].contents).strip("[]"))
     i=i+1
 
-
+upvote = cleanhtml(str(soup.find("span", class_="vote-count-post")))
+# print()
 question_data = {
     "Question" : questions,
     "Description" : description,
     "Authors" : question_authors, 
-    # "Upvote" : upvote
+    "Upvote" : upvote
 }
 
-
 data[str(question_data)] = list_of_answers
+print(data)
 
 file = open("answers.txt","w") 
 file.write(str(question))
