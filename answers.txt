@@ -1,1 +1,52 @@
-{'"python - What are the parameters for sklearn\'s score function? - Stack Overflow"': ['It takes a feature matrix X_test and the expected target values y_test. Predictions for X_test are compared with y_test and either accuracy (for classifiers) or R² score (for regression estimators is returned., This is stated very explicitly in the docstrings for score methods. The one for classification reads, and the one for regression is similar.', 'Not sure that I understood your question correctly. Obviously, to compute some error or similarity most scoring functions receive an array of reference values (y_true) and an array of values predicted by your model (y_score) as main parameters, but may also receive some other parameters, specific for the metric. Scoring functions usually do not need X values., I would suggest look into the source code of the scoring functions to understand how they work., Here is a list of scoring functions in scikit-learn.', "This is classifier dependent. Each classifier provides it's own scoring function., Estimator score method: Estimators have a score method providing a\n  default evaluation criterion for the problem they are designed to\n  solve. This is not discussed on this page, but in each estimator’s\n  documentation., Apart from the documentation given to you in one of the answers, the only additional thing you can do is to read what kind of parameters your estimator provides. For example SVM classifier SVC has the following parameters score(X, y, sample_weight=None) "]}
+[<div class="postcell post-layout--right">
+<div class="post-text" itemprop="text">
+<p>I recently looked at a bunch of sklearn tutorials, which were all similar in that they scored the goodness of fit by:</p>
+<pre><code>clf.fit(X_train, y_train)
+clf.score(X_test, y_test)
+</code></pre>
+<p>And it'll spit out:</p>
+<pre><code>0.92345...
+</code></pre>
+<p>or some other score.</p>
+<p>I am curious as to the parameters of the clf.score function or how it scores the model. I looked all over the internet, but can't seem to find documentation for it. Does anyone know?</p>
+</div>
+<div class="post-taglist">
+<a class="post-tag" href="/questions/tagged/python" rel="tag" title="show questions tagged 'python'">python</a> <a class="post-tag" href="/questions/tagged/scikit-learn" rel="tag" title="show questions tagged 'scikit-learn'">scikit-learn</a>
+</div>
+<div class="grid mb0 fw-wrap ai-start jc-end gs8 gsy">
+<div class="grid--cell mr16" style="flex: 1 1 100px;">
+<div class="post-menu"><a class="short-link" href="/q/24458163" id="link-post-24458163" title="short permalink to this question">share</a><span class="lsep">|</span><a class="suggest-edit-post" href="/posts/24458163/edit" title="">improve this question</a></div>
+</div>
+<div class="post-signature grid--cell fl0">
+<div class="user-info user-hover">
+<div class="user-action-time">
+<a href="/posts/24458163/revisions" title="show all edits to this post">edited <span class="relativetime" title="2015-08-22 06:38:30Z">Aug 22 '15 at 6:38</span></a>
+</div>
+<div class="user-gravatar32">
+<a href="/users/1090562/salvador-dali"><div class="gravatar-wrapper-32"><img alt="" height="32" src="https://www.gravatar.com/avatar/d675b3e6225683ba6432496ec23ed806?s=32&amp;d=identicon&amp;r=PG" width="32"/></div></a>
+</div>
+<div class="user-details">
+<a href="/users/1090562/salvador-dali">Salvador Dali</a>
+<div class="-flair">
+<span class="reputation-score" dir="ltr" title="reputation score 96,034">96k</span><span title="73 gold badges"><span class="badge1"></span><span class="badgecount">73</span></span><span title="449 silver badges"><span class="badge2"></span><span class="badgecount">449</span></span><span title="531 bronze badges"><span class="badge3"></span><span class="badgecount">531</span></span>
+</div>
+</div>
+</div> </div>
+<div class="post-signature owner grid--cell fl0">
+<div class="user-info ">
+<div class="user-action-time">
+        asked <span class="relativetime" title="2014-06-27 17:59:26Z">Jun 27 '14 at 17:59</span>
+</div>
+<div class="user-gravatar32">
+<a href="/users/3712008/tooty44"><div class="gravatar-wrapper-32"><img alt="" height="32" src="https://www.gravatar.com/avatar/e46058de055485201d2ecdc31b0db79c?s=32&amp;d=identicon&amp;r=PG&amp;f=1" width="32"/></div></a>
+</div>
+<div class="user-details">
+<a href="/users/3712008/tooty44">tooty44</a>
+<div class="-flair">
+<span class="reputation-score" dir="ltr" title="reputation score ">1,340</span><span title="6 gold badges"><span class="badge1"></span><span class="badgecount">6</span></span><span title="18 silver badges"><span class="badge2"></span><span class="badgecount">18</span></span><span title="31 bronze badges"><span class="badge3"></span><span class="badgecount">31</span></span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>]
