@@ -1,6 +1,7 @@
 import urllib.request
 from bs4 import BeautifulSoup
 from functions import *
+from filewriter import *
 
 with urllib.request.urlopen('file:///home/shortcake/Desktop/OJT/parsing/stackoverflow.html') as response:
    html = response.read()
@@ -14,7 +15,6 @@ complete_question = get_question(clean_html(str(upvotes[0])), list_of_all_commen
 list_of_answers =  get_all_answers(soup, upvotes, list_of_all_comments)
 
 data[str(complete_question)] = list_of_answers
+data_json = to_json(data)
 
-file = open("answers.txt","w") 
-file.write(to_json(data))
-file.close() 
+write_to_file("answers.txt", data_json)
