@@ -24,22 +24,24 @@ def get_complete_answer(answer_contents, upvote, comments, soup):
     }
     return answer_data
 
-def get_comments(comment, soup):
+def get_comments(comment, soup, upvote):
     comment_body = comment.find("div", class_="comment-body")
-    comment_content = comment_body.find("span", class_="comment-copy")
-    comment_author = comment_body.find("a", class_="comment-user")
+    content = clean_html(str(comment_body.find("span", class_="comment-copy")))
+    author = clean_html(str(comment_body.find("a", class_="comment-user")))
     complete_comment = {
-        "Content" : clean_html(str(comment_content)),
-        "Author" : clean_html(str(comment_author))
+        "Content" : content,
+        "Author" : author, 
+        "Upvote" : upvote
     }
     return complete_comment
 
 def get_all_comments(comment_container, soup):
     list_of_comments = []
     comment = comment_container.find_all("div", class_="comment-text js-comment-text-and-form")
+    comment_upvote =  clean_html(str(comment_container.find("div", class_="comment-score")))
     num = 0
     while(num != len(comment)):
-        list_of_comments.append(get_comments(comment[num], soup))
+        list_of_comments.append(get_comments(comment[num], soup, comment_upvote))
         num = num + 1
     return list_of_comments
 

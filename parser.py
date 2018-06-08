@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup
 from functions import *
 from filewriter import *
 
-with urllib.request.urlopen('file:///home/shortcake/Desktop/OJT/parsing/stackoverflow.html') as response:
+with urllib.request.urlopen('https://stackoverflow.com/questions/30484028/file-handling-in-gui') as response:
    html = response.read()
 
 soup = BeautifulSoup(html, 'html.parser')
@@ -17,4 +17,4 @@ list_of_answers =  get_all_answers(soup, upvotes, list_of_all_comments)
 data[str(complete_question)] = list_of_answers
 data_json = to_json(data)
 
-write_to_file("answers.txt", data_json)
+write_to_file(data_json)
