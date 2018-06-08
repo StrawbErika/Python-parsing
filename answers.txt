@@ -1,44 +1,24 @@
-Questions
-{}
+{"{'Comments': 
+    [{'Author': 'Korem', 
+    'Content': \"I believe it's model dependent\"}, 
+    {'Author': 'tooty44', 'Content': 'So the scoring function changes from SVMs, linear models, and other classifiers and regressors? That seems like a headache!'}], 
+    'Authors': [\"'Salvador Dali'\", \"'tooty44'\"], 
+    'Question': '\"python - What are the parameters for sklearn\\'s score function? - Stack Overflow\"', 'Upvote': '8', 
+    'Description': \"I recently looked at a bunch of sklearn tutorials, which were all similar in that they scored the goodness of fit by:, And it'll spit out:, or some other score., I am curious as to the parameters of the clf.score function or how it scores the model. I looked all over the internet, but can't seem to find documentation for it. Does anyone know?\"}":
+ 
+ [{"Comments": 
+    [{"Author": "wolfdawn", "Content": "Where does it get y_test and x_test?"}, 
+    {"Author": "Steven Chen", "Content": "@zehelvion You have to prepare X_test and y_test and there are a few ways to do that. If you are using scikit-learn, the function train_test_split from sklearn.model_selection is the one you are looking for."}], 
+    "Authors": ["'Fred Foo'"], 
+    "Upvote": "11", 
+    "Description": "It takes a feature matrix X_test and the expected target values y_test. Predictions for X_test are compared with y_test and either accuracy (for classifiers) or R\u00b2 score (for regression estimators is returned., This is stated very explicitly in the docstrings for score methods. The one for classification reads, and the one for regression is similar."}, 
 
-Answers
-
-Description Your existing code just needs a little tweak. i is the key, so you would just need to use it:, You can also get an iterator that contains both keys and values. In Python 2, d.items() returns a list of (key, value) tuples, while d.iteritems() returns an iterator that provides the same:, In Python 3, d.items() returns the iterator; to get a list, you need to pass the iterator to list() yourself.
-Comments []
-Authors ["'chepner'"]
-Upvote 148
-
-Description A little intro to dictionary, print keys,values method one, Another method, You can get keys using iter, you can get value of key of dictionary using get(key, [value]):, if key is not present in dictionary,when default value given, will return value.
-Comments []
-Authors ["'\\n'"]
-Upvote 34
-
-Description Or, for Python 3:
-Comments []
-Authors ["'Patrick Beeson'"]
-Upvote 10
-
-Description 
-Comments []
-Authors ["'\\n'"]
-Upvote 2
-
-Description 
-Comments []
-Authors ["'Irshad Bhat'"]
-Upvote 1
-
-Description If you want to sort the output by dict key you can use the collection package., It works on python 3
-Comments []
-Authors ["'paolof89'"]
-Upvote 1
-
-Description In addition to ways already mentioned..  can use 'viewitems', 'viewkeys', 'viewvalues', Or , or using itemgetter
-Comments []
-Authors ["'\\n'"]
-Upvote 0
-
-Description You can access your keys and/or values by calling items() on your dictionary.
-Comments []
-Authors ["'goulon'"]
-Upvote 0
+{"Comments": [], 
+    "Authors": ["'newtover'"], 
+    "Upvote": "1", 
+    "Description": "Not sure that I understood your question correctly. Obviously, to compute some error or similarity most scoring functions receive an array of reference values (y_true) and an array of values predicted by your model (y_score) as main parameters, but may also receive some other parameters, specific for the metric. Scoring functions usually do not need X values., I would suggest look into the source code of the scoring functions to understand how they work., Here is a list of scoring functions in scikit-learn."}, 
+    
+{"Comments": [], 
+    "Authors": ["'Salvador Dali'"], 
+    "Upvote": "1", 
+    "Description": "This is classifier dependent. Each classifier provides it's own scoring function., Estimator score method: Estimators have a score method providing a\n  default evaluation criterion for the problem they are designed to\n  solve. This is not discussed on this page, but in each estimator\u2019s\n  documentation., Apart from the documentation given to you in one of the answers, the only additional thing you can do is to read what kind of parameters your estimator provides. For example SVM classifier SVC has the following parameters score(X, y, sample_weight=None) "}]}
