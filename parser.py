@@ -1,6 +1,11 @@
 import urllib.request
 import re
 from bs4 import BeautifulSoup
+import json
+
+def to_json(dictionary):
+    return json.dumps(dictionary)
+
 
 def get_authors(content, author_position, count):
     author_content = content[author_position].find_all("div", class_="user-details")
@@ -45,45 +50,48 @@ def clean_html(raw_html):
     cleantxt = re.sub(clean, '', raw_html)
     return cleantxt
 
-with urllib.request.urlopen('https://stackoverflow.com/questions/24458163/what-are-the-parameters-for-sklearns-score-function') as response:
+with urllib.request.urlopen('https://stackoverflow.com/questions/26660654/how-do-i-print-the-key-value-pairs-of-a-dictionary-in-python/26660785') as response:
    html = response.read()
 
 soup = BeautifulSoup(html, 'html.parser')
 
+def get_all_posts(store):
+    all_posts =soup.find_all("div", class_="post-layout")
+    j = 0
+    while(j != len(all_posts)):
+        list_of_all_comments.append(get_all_comments(all_posts[j])) 
+        j = j + 1
+        
 list_of_all_comments = []
-all_posts =soup.find_all("div", class_="post-layout")
-j = 0
-while(j != len(all_posts)):
-    list_of_all_comments.append(get_all_comments(all_posts[j])) 
-    j = j + 1
-
 data = {}
-
 question_data = {}
 
-question = soup.find_all("div", class_="postcell post-layout--right")
-question_title = str(soup.title.contents).strip("[]") 
-question_contents = question[0].contents
-question_description = clean_html(str(question_contents[1].find_all("p")).strip("[]"))
+get_all_posts(list_of_all_comments)
 
-question_authors = []
-q_author_content = question_contents[5].find_all("div", class_="user-details")
-i = 0
-while(i != len(q_author_content)):
-    get_authors(question_contents, 5, i)
-    question_authors.append(get_authors(question_contents, 5, i))
-    i=i+1
+def get_question(upvote, comment):
+    question = soup.find_all("div", class_="postcell post-layout--right")
+    question_title = str(soup.title.contents).strip("[]") 
+    question_contents = question[0].contents
+    question_description = clean_html(str(question_contents[1].find_all("p")).strip("[]"))
+
+    question_authors = []
+    q_author_content = question_contents[5].find_all("div", class_="user-details")
+    i = 0
+    while(i != len(q_author_content)):
+        get_authors(question_contents, 5, i)
+        question_authors.append(get_authors(question_contents, 5, i))
+        i=i+1
+    question_data = {
+        "Question" : question_title,
+        "Description" : question_description,
+        "Authors" : question_authors, 
+        "Upvote" :  upvote,
+        "Comments" : comment
+    }
 
 upvotes = soup.find_all("span", class_="vote-count-post")
-question_upvote = clean_html(str(upvotes[0]))
 
-question_data = {
-    "Question" : question_title,
-    "Description" : question_description,
-    "Authors" : question_authors, 
-    "Upvote" :  question_upvote,
-    "Comments" : list_of_all_comments[0]
-}
+get_question(clean_html(str(upvotes[0])), list_of_all_comments[0])    
 
 list_of_answers = []
 count = 0
@@ -96,6 +104,7 @@ while(count != len(answer)):
 
 data[str(question_data)] = list_of_answers
 
+print(to_json(data))
 file = open("answers.txt","w") 
 file.write("Questions" + "\n")
 for k, v in data.items():
